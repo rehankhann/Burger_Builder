@@ -22,7 +22,7 @@ const Buildcontrol = (props) =>{
                 ))
             }
             <div className={Classes.txt_center}>
-                <button disabled={props.purchase} className={Classes.OrderButton}>ORDER NOW</button>
+                <button onClick={props.checkout} disabled={props.purchase} className={Classes.OrderButton}>ORDER NOW</button>
             </div>
         </div>
     )

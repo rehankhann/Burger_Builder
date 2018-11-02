@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import Aux from '../../hoc/auxi';
-import Burger from '../../components/Burger/Burger'
-import Buildcontrol from '../../components/Burger/BuildControl/BuildControl'
+import Burger from '../../components/Burger/Burger';
+import Buildcontrol from '../../components/Burger/BuildControl/BuildControl';
+import Modal from '../../components/Modal/Modal';
+import Ordersummary from '../../components/UI/ordersummary/ordersummary';
+import Backdrop from '../../components/UI/Backdrop/Backdrop'
 
 const INGREDIENT_PRICES = {
     salad:10,
@@ -20,16 +23,11 @@ class BurgerBuilder extends Component {
             meat:0
         },
         totalPrice : 30,
-        purchaseable:'disabled'
+        purchaseable:'disabled',
+        ordersummary:'none'
     }
 
-    /*updatepurchase = () => {
-        this.setState({
-            purchaseable:'true'
-        });
-    }*/
-
-    addingredientHandler = (type) =>{
+    addingredientHandler = (type) => {
         const oldcount = this.state.ingredients[type];
         const updatecount = oldcount + 1 ;
         const updateingredients = {...this.state.ingredients};
@@ -71,11 +69,25 @@ class BurgerBuilder extends Component {
         });
     }
 
+    checkout = () => {
+        this.setState({
+            ordersummary:'block'
+        })
+    }
+
+    ClosePopup = () => {
+        this.setState({
+            ordersummary:'none'
+        })
+    }
+
     render(){
         return(
             <Aux>
+                <Backdrop hide={this.state.ordersummary}/>
                 <Burger price={this.state.totalPrice} ingredient={this.state.ingredients} />
-                <Buildcontrol purchase={this.state.purchaseable} removeingredient={this.removeingrdientHandler} ingredientadded={this.addingredientHandler}/>
+                <Buildcontrol checkout={this.checkout} purchase={this.state.purchaseable} removeingredient={this.removeingrdientHandler} ingredientadded={this.addingredientHandler}/>
+                <Modal dismisspopup={this.ClosePopup} hide={this.state.ordersummary}><Ordersummary finalprice={this.state.totalPrice} summary={this.state.ingredients}></Ordersummary></Modal>
             </Aux>
         );
     }
