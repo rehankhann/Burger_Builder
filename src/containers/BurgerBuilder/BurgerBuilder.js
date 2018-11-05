@@ -46,7 +46,6 @@ class BurgerBuilder extends Component {
 
     removeingrdientHandler = (type) => {
         const oldcount = this.state.ingredients[type];
-        console.log(oldcount);
         if(oldcount <=0){
             return;
         }
