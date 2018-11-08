@@ -80,13 +80,17 @@ class BurgerBuilder extends Component {
         })
     }
 
+    continueOrder = () =>{
+        alert('Continue');
+    }
+
     render(){
         return(
             <Aux>
                 <Backdrop hide={this.state.ordersummary}/>
                 <Burger price={this.state.totalPrice} ingredient={this.state.ingredients} />
                 <Buildcontrol checkout={this.checkout} purchase={this.state.purchaseable} removeingredient={this.removeingrdientHandler} ingredientadded={this.addingredientHandler}/>
-                <Modal dismisspopup={this.ClosePopup} hide={this.state.ordersummary}><Ordersummary finalprice={this.state.totalPrice} summary={this.state.ingredients}></Ordersummary></Modal>
+                <Modal continue={this.continueOrder} dismisspopup={this.ClosePopup} hide={this.state.ordersummary}><Ordersummary finalprice={this.state.totalPrice} summary={this.state.ingredients}></Ordersummary></Modal>
             </Aux>
         );
     }

@@ -10,8 +10,6 @@ const ordersummary = (props) => {
         })
     );
 
-    console.log(checkoutingredient);
-
     return(
         <div>
             <h3>A delicios burger is ready with the following ingredients</h3>
