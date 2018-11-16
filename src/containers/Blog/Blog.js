@@ -1,48 +1,47 @@
 import React, { Component } from 'react';
-import axios from 'axios'
+import { Route , Link } from 'react-router-dom'
+import PostUrl from './post_page/post_page.js';
+import Newpost from './NewPost/NewPost.js';
+import Fullpost from './FullPost/FullPost'
 
-import Post from '../../components/Post/Post';
-import FullPost from '../../components/FullPost/FullPost';
-import NewPost from '../../components/NewPost/NewPost';
 import './Blog.css';
 
 class Blog extends Component {
 
     state = {
-        post : []
+        Today : 'Friday'
+    }
+
+    constructor(props){
+        super(props)
+        console.log('[Blog.js]_inside constructor', props );
+    }
+
+    componentWillMount(){
+        console.log('ComponentWillMount inside Blog js');
     }
 
     componentDidMount(){
-        axios.get('https://jsonplaceholder.typicode.com/posts').then(response => {
-            /* Transform Data */
-            const slicepost = response.data.slice(0,4);
-            const Updatedauthor = slicepost.map(oldpost => {
-                return{
-                    ...oldpost,
-                    author:'khan'
-                }
-            });
-            this.setState({post:Updatedauthor})
-        });
+        console.log('ComponentDidMount inside Blog js');
+    }
+
+    shouldComponentUpdate(){
+        console.log('shouldComponentUpdate inside Blog.js')
+        return true;
     }
 
     render () {
-
-        const postdetails = this.state.post.map(FetchPost => {
-            return <Post key={FetchPost.id} Title={FetchPost.title} author={FetchPost.author} />
-        }); 
-
+        console.log('Blog js Inside Render')
         return (
             <div>
-                <section className="Posts">
-                {postdetails}
-                </section>
-                <section>
-                    <FullPost />
-                </section>
-                <section>
-                    <NewPost />
-                </section>
+                <ul className="top_vav">
+                    <li><Link to="/">Home</Link></li>
+                    <li><Link to="/new-post">New Post</Link></li>
+                </ul>
+                <Route path="/" exact component={PostUrl}/>
+                <Route path="/post/:id" component={Fullpost}/>
+                <Route path="/new-post" component={Newpost}/>
+                
             </div>
         );
     }

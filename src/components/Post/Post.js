@@ -1,14 +1,25 @@
-import React from 'react';
+import React, {Component} from 'react';
 
 import './Post.css';
 
-const post = (props) => (
-    <article className="Post">
-        <h1>{props.Title}</h1>
-        <div className="Info">
-            <div className="Author">{props.author}</div>
-        </div>
-    </article>
-);
+class post extends Component{
+    componentWillReceiveProps (nextProps){
+        console.log(nextProps + 'componentWillReceiveProps inside Post');
+    }
+    render(){
+        return(
+            <article className="Post" onClick={this.props.SelectPost}>
+            <h1>{this.props.Title}</h1>
+            <div className="Info">
+                <div className="Author">{this.props.author}</div>
+            </div>
+            </article>
+        )
+    }
+}
+
+/*const post = (props) => (
+
+);*/
 
 export default post;
